@@ -1,10 +1,5 @@
+import { Button } from "@mui/material";
 import React, { Component } from "react";
-
-const classes = {
-  badgeFont: {
-    fontSize: "1em",
-  },
-};
 
 class Block extends Component {
   getBadgeClass = () => {
@@ -13,13 +8,13 @@ class Block extends Component {
   render() {
     return (
       <React.Fragment>
-        <button
-          className="btn btn-sm ml-2 btn-danger"
+        <Button variant="outlined" size="large"
           onClick={() => this.props.ChooseBlock(this.props.id)}
         >
-          
-          {this.props.value===null?'null':this.props.value}
-        </button>
+
+          {(this.props.value === null) ? 'null ' : this.props.value}
+        </Button>
+
       </React.Fragment>
     );
   }

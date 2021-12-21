@@ -2,17 +2,8 @@ import React, { Component } from "react";
 import Block from "./Block";
 
 
-const classes = {
-  badgeFont: {
-    fontSize: "1em",
-  },
-};
 
 class Board extends Component {
-  constructor(props) {
-    super(props);
-    let win;
-  }
 
   state = {
     Blockss: Array(9).fill(null),
@@ -28,17 +19,12 @@ class Board extends Component {
       { id: 9, value: null },
     ],
     lastId: 'X',
-    winner: null,
+    winner:null,
   };
 
   render() {
     console.log("Rendered.");
 
-    const current = [...this.state.Blocks];
-    const winner = this.IsGameOver(current);
-    if (winner === true) {
-      console.log("wined")
-    }
     return (
       <div className="container">
         <button
@@ -64,7 +50,7 @@ class Board extends Component {
           {this.renderBlock(this.state.Blocks[8])}
         </div>
         <div>
-          <label>{winner ? 'Winner is: ' + (this.state.lastId=='X'?'O':'X' ): ''}</label>
+          <label>{this.state.winner!=null ? 'Winner is: ' + (this.state.lastId==='X'?'O':'X' ): ''}</label>
         </div>
       </div>
     );
@@ -72,14 +58,21 @@ class Board extends Component {
 
   ChooseBlock = (id) => {
     let block = [...this.state.Blocks];
+    let whoWone=this.state.winner;
+
     const idx = block.findIndex((block) => {
       return block.id === id;
     });
 
     let lastId = this.state.lastId;
-    if (block[idx].value === null) {
+    if (block[idx].value === null && whoWone===null) {
       block[idx].value = lastId;
       lastId = (lastId === 'X') ? 'O' : 'X';
+    }
+    
+    let winner = this.IsGameOver(block);
+    if (winner) {
+      this.setState({ winner:(this.state.lastId==='X'?'O':'X' ) });
     }
     this.setState({ block, lastId });
   };
@@ -90,35 +83,31 @@ class Board extends Component {
         key={block.id}
         id={block.id}
         value={block.value}
-        winner={block.winner}
         ChooseBlock={this.ChooseBlock}
       />
     );
   };
 
   IsGameOver(blocks) {
-    let winner = this.state.winner;
+    //let winner = this.state.winner;
     //let blocks = [...this.state.Blocks];
     for (let i = 0; i < 3; i++) {
       if (blocks[i * 3 + 1].value === blocks[i * 3].value &&
         blocks[i * 3 + 1].value === blocks[i * 3 + 2].value &&
         blocks[i * 3 + 1].value != null) {
         //winner = blocks[i * 3 + 1].value;
-        console.log("wined");
         return true;
       }
       if (blocks[i + 3].value === blocks[i + 3 -3].value &&
         blocks[i + 3].value === blocks[i + 3 + 3].value &&
         blocks[i + 3].value != null) {
         //winner = blocks[i * 3].value;
-        console.log("wined");
         return true;
       }
     }
-    if ((blocks[0].value === blocks[4].value && blocks[4].value === blocks[8].value ||
-      blocks[2].value === blocks[4].value && blocks[4].value === blocks[6].value) && blocks[4].value != null) {
+    if (((blocks[0].value === blocks[4].value && blocks[4].value === blocks[8].value) ||
+      (blocks[2].value === blocks[4].value && blocks[4].value === blocks[6].value)) && blocks[4].value != null) {
       // winner = blocks[4].value;
-      console.log("wined");
       return true;
     }
     return false;
