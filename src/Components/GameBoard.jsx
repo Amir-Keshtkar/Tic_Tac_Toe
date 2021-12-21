@@ -1,3 +1,5 @@
+import { Box, Grid } from "@material-ui/core";
+import { Button, Alert } from "@mui/material";
 import React, { Component } from "react";
 import Block from "./Block";
 
@@ -19,64 +21,49 @@ class Board extends Component {
       { id: 9, value: null },
     ],
     lastId: 'X',
-    winner:null,
+    winner: null,
   };
 
   render() {
     console.log("Rendered.");
 
     return (
-      <div className="container">
-        <button
-          className="btn btn-sm mt-2 mb-2 btn-info"
-          onClick={this.handleResetAll}
-        >
+      <React.Fragment>
+        <Button
+          variant="contained"
+          onClick={this.handleResetAll}>
           Reset Game
-        </button>
-        <br />
-        <div className="board-row">
-          {this.renderBlock(this.state.Blocks[0])}
-          {this.renderBlock(this.state.Blocks[1])}
-          {this.renderBlock(this.state.Blocks[2])}
-        </div>
-        <div className="board-row">
-          {this.renderBlock(this.state.Blocks[3])}
-          {this.renderBlock(this.state.Blocks[4])}
-          {this.renderBlock(this.state.Blocks[5])}
-        </div>
-        <div className="board-row">
-          {this.renderBlock(this.state.Blocks[6])}
-          {this.renderBlock(this.state.Blocks[7])}
-          {this.renderBlock(this.state.Blocks[8])}
-        </div>
-        <div>
-          <label>{this.state.winner!=null ? 'Winner is: ' + (this.state.lastId==='X'?'O':'X' ): ''}</label>
-        </div>
-      </div>
+        </Button>
+
+
+        <Box sx={{
+            display: 'grid',
+            columnGap: 0,
+            rowGap: 0,
+            gridTemplateColumns: 'repeat(1, 1fr)',
+          }}
+        >
+          <Grid>
+            {this.renderBlock(this.state.Blocks[0])}
+            {this.renderBlock(this.state.Blocks[1])}
+            {this.renderBlock(this.state.Blocks[2])}</Grid>
+          <Grid>
+            {this.renderBlock(this.state.Blocks[3])}
+            {this.renderBlock(this.state.Blocks[4])}
+            {this.renderBlock(this.state.Blocks[5])}</Grid>
+          <Grid>
+            {this.renderBlock(this.state.Blocks[6])}
+            {this.renderBlock(this.state.Blocks[7])}
+            {this.renderBlock(this.state.Blocks[8])}</Grid>
+        </Box>
+
+
+
+
+        <Alert severity="info">{this.state.winner != null ? 'Winner is: ' + (this.state.lastId === 'X' ? 'O' : 'X') : ''}</Alert>
+      </React.Fragment>
     );
   }
-
-  ChooseBlock = (id) => {
-    let block = [...this.state.Blocks];
-    let whoWone=this.state.winner;
-
-    const idx = block.findIndex((block) => {
-      return block.id === id;
-    });
-
-    let lastId = this.state.lastId;
-    if (block[idx].value === null && whoWone===null) {
-      block[idx].value = lastId;
-      lastId = (lastId === 'X') ? 'O' : 'X';
-    }
-    
-    let winner = this.IsGameOver(block);
-    if (winner) {
-      this.setState({ winner:(this.state.lastId==='X'?'O':'X' ) });
-    }
-    this.setState({ block, lastId });
-  };
-
   renderBlock(block) {
     return (
       <Block
@@ -86,6 +73,26 @@ class Board extends Component {
         ChooseBlock={this.ChooseBlock}
       />
     );
+  };
+  ChooseBlock = (id) => {
+    let block = [...this.state.Blocks];
+    let whoWone = this.state.winner;
+
+    const idx = block.findIndex((block) => {
+      return block.id === id;
+    });
+
+    let lastId = this.state.lastId;
+    if (block[idx].value === null && whoWone === null) {
+      block[idx].value = lastId;
+      lastId = (lastId === 'X') ? 'O' : 'X';
+    }
+
+    let winner = this.IsGameOver(block);
+    if (winner) {
+      this.setState({ winner: (this.state.lastId === 'X' ? 'O' : 'X') });
+    }
+    this.setState({ block, lastId });
   };
 
   IsGameOver(blocks) {
@@ -98,7 +105,7 @@ class Board extends Component {
         //winner = blocks[i * 3 + 1].value;
         return true;
       }
-      if (blocks[i + 3].value === blocks[i + 3 -3].value &&
+      if (blocks[i + 3].value === blocks[i + 3 - 3].value &&
         blocks[i + 3].value === blocks[i + 3 + 3].value &&
         blocks[i + 3].value != null) {
         //winner = blocks[i * 3].value;
@@ -117,10 +124,12 @@ class Board extends Component {
 
   handleResetAll = () => {
     let blocks = [...this.state.Blocks];
+    let winner = this.state.winner;
     for (let index = 0; index < blocks.length; index++) {
       blocks[index].value = null;
     }
-    this.setState({ blocks });
+    winner = null;
+    this.setState({ blocks, winner });
   };
 };
 
