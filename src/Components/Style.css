@@ -1,0 +1,19 @@
+*{ 
+	font-family: Roboto;
+	font-size: 1em;
+}
+body{
+	background-image:url("texture.jfif");
+	background-repeat:repeat;
+}
+div{
+	max-width: 900px;
+	margin: auto;
+	text-align: center;
+}
+#alert{
+	font-size: 2em;
+	margin: left;
+    size: 40px;
+    color: darkorange;
+}

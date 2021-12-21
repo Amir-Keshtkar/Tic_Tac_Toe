@@ -2,13 +2,12 @@ import { Box, Grid } from "@material-ui/core";
 import { Button, Alert } from "@mui/material";
 import React, { Component } from "react";
 import Block from "./Block";
-
+import Style from './Style.css';
 
 
 class Board extends Component {
 
   state = {
-    Blockss: Array(9).fill(null),
     Blocks: [
       { id: 1, value: null },
       { id: 2, value: null },
@@ -34,14 +33,15 @@ class Board extends Component {
           onClick={this.handleResetAll}>
           Reset Game
         </Button>
-
-
+        <br/>
+        <br/>
+        <br/>
         <Box sx={{
-            display: 'grid',
-            columnGap: 0,
-            rowGap: 0,
-            gridTemplateColumns: 'repeat(1, 1fr)',
-          }}
+          display: 'grid',
+          columnGap: 0,
+          rowGap: 0,
+          gridTemplateColumns: 'repeat(1, 1fr)',
+        }}
         >
           <Grid>
             {this.renderBlock(this.state.Blocks[0])}
@@ -56,11 +56,13 @@ class Board extends Component {
             {this.renderBlock(this.state.Blocks[7])}
             {this.renderBlock(this.state.Blocks[8])}</Grid>
         </Box>
+        
+        <br/>
+        <br/>
+        <br/>
 
 
-
-
-        <Alert severity="info">{this.state.winner != null ? 'Winner is: ' + (this.state.lastId === 'X' ? 'O' : 'X') : ''}</Alert>
+        <Alert id="alert" severity="info">{this.state.winner != null ? 'Winner is: ' + (this.state.lastId === 'X' ? 'O' : 'X') : ''}</Alert>
       </React.Fragment>
     );
   }

@@ -1,6 +1,6 @@
 import { Button } from "@mui/material";
 import React, { Component } from "react";
-import './Style.css';
+import Style from './Style.css';
 
 class Block extends Component {
   getBadgeClass = () => {
@@ -9,10 +9,9 @@ class Block extends Component {
   render() {
     return (
       <React.Fragment>
-        <Button variant="outlined"  fontSize="inherit" Height={50} width={30} size="large" Style="Width:50px; Height: 50px;"
+        <Button sx={{ border: 2 , fontSize: 70}} variant="outlined"  fontSize="inherit" Height={100} width={100} size="large" Style=" font_size:4em;  Width:100px; Height: 100px;"
           onClick={() => this.props.ChooseBlock(this.props.id)}
         >
-
           {(this.props.value === null) ? '' : this.props.value}
         </Button>
 
