@@ -4,13 +4,13 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## How can I start this project?
 
-### First, you should download and install Node.js. You can install it on your OS wheter you have linux, mac or windows from [https://nodejs.org/en/download/]here.
+ First, you should download and install Node.js. You can install it on your OS wheter you have linux, mac or windows from [here](https://nodejs.org/en/download/).
 
-### After installing Node.Js you can clone this project on your PC or repository with this code in Git Bash Environment.
+ After installing Node.Js you can clone this project on your PC or repository with this code in Git Bash Environment.
 <pre><code>git clone https://github.com/AmirhosseinKeshtkar/Tic_Tac_Toe.git</code></pre>
-If you dont have Git Bash you can install it from this [https://git-scm.com/downloads]link
+If you dont have Git Bash you can install it from this [link](https://git-scm.com/downloads)
 
-### After making a clone from this repository, you should install npm or yarn to run this project with Git Bash. You can use this two command:
+ After making a clone from this repository, you should install npm or yarn to run this project with Git Bash. You can use this two command:
 <pre><code>npm install </code></pre>
 or
 <pre><code>npm install --global yarn </code></pre>
